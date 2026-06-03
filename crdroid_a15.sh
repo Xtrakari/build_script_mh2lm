@@ -22,7 +22,7 @@ echo "Sync success"
 echo "============="
 
 # Export
-export BUILD_USERNAME=DarkKiller
+export BUILD_USERNAME=Xtra
 export BUILD_HOSTNAME=crave
 export BUILD_BROKEN_MISSING_REQUIRED_MODULES=true
 echo "======= Export Done ======"
