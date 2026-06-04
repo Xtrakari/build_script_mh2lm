@@ -20,6 +20,19 @@ echo "============="
 echo "Sync success"
 echo "============="
 
+# ================= FIX FOR CLANG MISSING ERROR =================
+echo "================================================="
+echo "Fixing broken Clang toolchain tracker..."
+echo "================================================="
+# Wipe the broken tracking directories that broke during Crave's sync
+rm -rf .repo/projects/prebuilts/clang/host/linux-x86.git
+rm -rf prebuilts/clang/host/linux-x86
+
+# Force-sync ONLY the missing Clang compiler package properly
+repo sync -c -d --force-sync prebuilts/clang/host/linux-x86
+echo "================================================="
+# ===============================================================
+
 # Export
 export BUILD_USERNAME=Xtra
 export BUILD_HOSTNAME=crave
