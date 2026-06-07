@@ -12,19 +12,11 @@ echo "=================="
 echo "Repo init success"
 echo "=================="
 
-# Inject LGE Device Repositories directly into Local Manifest
-mkdir -p .repo/local_manifests
-cat << 'EOF' > .repo/local_manifests/mh2lm.xml
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-  <project name="lge-qcom-dev/android_hardware_lge" path="hardware/lge" remote="github" />
-  <project name="lge-qcom-dev/android_device_lge_mh2lm" path="device/lge/mh2lm" remote="github" revision="staging/lineage-21" />
-  <project name="lge-qcom-dev/android_device_lge_sm8150-common" path="device/lge/sm8150-common" remote="github" revision="staging/lineage-21" />
-  <project name="lge-qcom-dev/android_kernel_lge_sm8150" path="kernel/lge/sm8150" remote="github" revision="staging/lineage-21" />
-  <project name="lge-qcom-dev/proprietary_vendor_lge_sm8150-common" path="vendor/lge/sm8150-common" remote="github" revision="staging/lineage-21" />
-  <project name="lge-qcom-dev/proprietary_vendor_lge_mh2lm" path="vendor/lge/mh2lm" remote="github" revision="staging/lineage-21" />
-</manifest>
-EOF
+# Local manifests
+git clone https://github.com/Xtrakari/local_manifest_mh2lm.git .repo/local_manifests -b main
+echo "============================"
+echo "Local manifest clone success"
+echo "============================"
 
 echo "================================"
 echo "Local manifest creation success"
