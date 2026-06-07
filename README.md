@@ -10,3 +10,7 @@ crave run --clean --no-patch -- "curl -v https://raw.githubusercontent.com/Xtrak
 • Lineage A15
 ```
 crave run --clean --no-patch -- "curl -v https://raw.githubusercontent.com/Xtrakari/build_script_mh2lm/refs/heads/main/lineage_a15.sh | bash"
+```
+• EvolutionX A15
+```
+crave run --clean --no-patch -- "curl https://raw.githubusercontent.com/Xtrakari/build_script_mh2lm/refs/heads/main/evox_a15.sh | bash"
