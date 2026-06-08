@@ -31,6 +31,8 @@ export BUILD_BROKEN_MISSING_REQUIRED_MODULES=true
 echo "======= Export Done ======"
 
 # Delete Error Line
+sed -i '/lirc_device/d' device/lineage/sepolicy/common/vendor/hal_ir_default.te
+sed -i '/lirc_device/d' device/lineage/sepolicy/common/vendor/file_contexts
 sed -i '/type lirc_device, dev_type;/d' device/lineage/sepolicy/common/vendor/device.te
 
 # Set up build environment
