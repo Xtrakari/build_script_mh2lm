@@ -14,6 +14,11 @@ echo "============================"
 echo "Local manifest clone success"
 echo "============================"
 
+# CRITICAL FIX: Delete the old hardware/qcom directories BEFORE sync 
+# This stops old, dead symlinks from breaking the build.
+rm -rf hardware/qcom
+rm -rf hardware/qcom_old
+
 # Build Sync
 /opt/crave/resync.sh 
 echo "============="
