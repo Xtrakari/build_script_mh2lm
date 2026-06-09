@@ -3,7 +3,7 @@
 rm -rf .repo/local_manifests/
 
 # repo init rom
-repo init -u https://github.com/RisingOS-Revived/android.git -b fifteen --git-lfs
+repo init -u https://github.com/RisingOS-Revived/android -b qpr2 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -20,29 +20,22 @@ echo "============="
 echo "Sync success"
 echo "============="
 
-# Export Env Vars
-export BUILD_USERNAME=Xtra
+# Export
+export BUILD_USERNAME=Xtra 
 export BUILD_HOSTNAME=crave
 export BUILD_BROKEN_MISSING_REQUIRED_MODULES=true
-
-# --- GMS Flags (Perfectly fine for mh2lm) ---
-export WITH_GMS=true
-export TARGET_CORE_GMS=true
-export TARGET_CORE_GMS_EXTRAS=true
-export TARGET_DEFAULT_PIXEL_LAUNCHER=true
-export TARGET_INCLUDE_GOOGLE_DIALER=true
-# --------------------------------------------
-
 echo "======= Export Done ======"
 
-# Delete Error Line (Note: Only keep this if rising's sepolicy triggers this exact error on sm8150)
+# Delete Error Line
+sed -i '/lirc_device/d' device/lineage/sepolicy/common/vendor/hal_ir_default.te
+sed -i '/lirc_device/d' device/lineage/sepolicy/common/vendor/file_contexts
 sed -i '/type lirc_device, dev_type;/d' device/lineage/sepolicy/common/vendor/device.te
 
 # Set up build environment
 source build/envsetup.sh
 echo "============="
 
-# Lunch - Changed export mh2lm
+# Lunch 
 riseup mh2lm userdebug
 
 # Build 
