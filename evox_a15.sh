@@ -1,51 +1,53 @@
-#!/bin/bash
-
 rm -rf .repo/local_manifests/
+rm -rf device/lge
+rm -rf kernel/lge
+rm -rf vendor/lge
+rm -rf hardware/lge
+rm -rf build/soong
+rm -rf out/target/product/mh2lm
+# Cleanup previous changelog to make it always fresh
+rm -rf out/target/product/*/system/etc/Changelog.txt \
+       out/target/product/*/obj/ETC/Changelog.txt_intermediates \
+       out/target/product/*/gen/ETC/Changelog.txt_intermediates
 
-# repo init rom
-repo init -u https://github.com/Evolution-X/manifest -b vic --git-lfs
-echo "=================="
-echo "Repo init success"
-echo "=================="
+# Clone evox
 
-# Local manifests
-git clone https://github.com/Xtrakari/local_manifest_mh2lm.git .repo/local_manifests -b mh2lm-evox
-echo "============================"
-echo "Local manifest clone success"
-echo "============================"
+repo init -u https://github.com/Evolution-X/manifest -b vic --depth=1 --git-lfs
+#Temp Fix Repo tool
+#cd .repo/repo;git pull -r;cd ../..;
 
-# CRITICAL FIX: Delete the old hardware/qcom directories BEFORE sync 
-# This stops old, dead symlinks from breaking the build.
-rm -rf hardware/qcom
-rm -rf hardware/qcom_old
+# Clone local_manifests repository
+git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2lm-evox .repo/local_manifests
+if [ ! 0 == 0 ]
+ then   curl -o .repo/local_manifests https://github.com/Xtrakari/local_manifest_mh2lm.git
+ fi
 
-# Build Sync
-/opt/crave/resync.sh 
-echo "============="
-echo "Sync success"
-echo "============="
+# repo sync
+/opt/crave/resync.sh
+grep -q '"com.lazada.android"' frameworks/base/core/java/com/android/internal/util/evolution/PixelPropsUtils.java || \
+sed -i '/"com.android.chrome",/a\        "com.lazada.android",\n        "com.shopee.my",' frameworks/base/core/java/com/android/internal/util/evolution/PixelPropsUtils.java
+cat frameworks/base/core/java/com/android/internal/util/evolution/PixelPropsUtils.java
 
-# Delete unnecessary folders
-rm -rf device/linaro/hikey
-rm -rf device/amlogic/yukawa
+# # Set up build environment
+# cd frameworks/base && curl https://gist.githubusercontent.com/bagaskara815/b2abdff48cae8370ca2a0b867d7769e4/raw/fw.patch >> fw.patch && git am fw.patch && rm fw.patch && cd ../../
+# wget https://github.com/bagaskara815/local_manifests/raw/keys/keys.zip && unzip -o keys.zip -d vendor/lineage/signing/ && rm keys.zip
 
-# Export
-export BUILD_USERNAME=Xtra
-export BUILD_HOSTNAME=crave
-export BUILD_BROKEN_MISSING_REQUIRED_MODULES=true
-echo "======= Export Done ======"
+# # disable fsgen
+# cd build/soong && curl https://gist.githubusercontent.com/bagaskara815/2f26516ef378fe8eae9803749e331a09/raw/fsgen.patch >> fsgen.patch && git am fsgen.patch && rm fsgen.patch && cd ../../
 
-# Delete Error Line
-sed -i '/lirc_device/d' device/lineage/sepolicy/common/vendor/hal_ir_default.te
-sed -i '/lirc_device/d' device/lineage/sepolicy/common/vendor/file_contexts
-sed -i '/type lirc_device, dev_type;/d' device/lineage/sepolicy/common/vendor/device.te
+# # Nfc Fix
+# cd packages/apps/Nfc && curl https://gist.githubusercontent.com/bagaskara815/e9ad53683e62a66ff0a4ba5d714bed80/raw/nfcfix.patch >> nfcfix.patch && git am nfcfix.patch && rm nfcfix.patch && cd ../../../
 
-# Set up build environment
+# # GMS temp fix
+# cd vendor/google/gms && curl https://gist.githubusercontent.com/bagaskara815/eff6e36fb96db28298d35281eb2b85c4/raw/gms-temp-fix.patch >> gms-temp-fix.patch && git am gms-temp-fix.patch && rm gms-temp-fix.patch && cd ../../../
+
 source build/envsetup.sh
-echo "============="
 
-# Lunch
+# brunch configuration
 lunch lineage_mh2lm-bp1a-userdebug
 
-# Build
+# Clean
+make installclean
+
+# Run
 m evolution
