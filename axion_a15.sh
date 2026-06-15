@@ -28,10 +28,10 @@ if [ ! 0 == 0 ]
 source build/envsetup.sh
 
 # brunch configuration
-axion mh2lm va
+breakfast mh2lm gms pico
 
 # Clean
 make installclean
 
 # Run
-ax -br
+mka bacon
