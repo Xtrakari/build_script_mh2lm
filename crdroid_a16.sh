@@ -28,7 +28,7 @@ if [ ! 0 == 0 ]
 source build/envsetup.sh
 
 # brunch configuration
-lunch lineage_mh2lm-bp1a-userdebug
+lunch lineage_mh2lm-bp2a-userdebug
 
 # Clean
 make installclean
