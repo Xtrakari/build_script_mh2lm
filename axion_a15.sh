@@ -28,7 +28,7 @@ if [ ! 0 == 0 ]
 source build/envsetup.sh
 
 # brunch configuration
-axion mh2lm userdebug gms pico
+axion mh2lm userdebug va
 
 # Clean
 make installclean
