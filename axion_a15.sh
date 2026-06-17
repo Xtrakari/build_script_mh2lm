@@ -25,10 +25,10 @@ git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b main
 source build/envsetup.sh
 
 # brunch configuration
-axion mh2lm userdebug va
+lunch lineage_mh2lm_bp1a-userdebug
 
 # Clean
 make installclean
 
 #Run
-ax -br 
+mka bacon
