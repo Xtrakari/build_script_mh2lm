@@ -1,3 +1,5 @@
+source build/envsetup.sh
+
 # 4. Set up your device combo
 axion mh2lm userdebug va
 
