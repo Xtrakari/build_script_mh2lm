@@ -11,10 +11,7 @@ rm -rf out/target/product/*/system/etc/Changelog.txt \
        out/target/product/*/gen/ETC/Changelog.txt_intermediates
 
 # Clone axion
-
 repo init -u https://github.com/AxionAOSP/android.git -b lineage-22.2 --depth=1 --git-lfs
-#Temp Fix Repo tool
-#cd .repo/repo;git pull -r;cd ../..;
 
 # Clone local_manifests repository
 git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b main .repo/local_manifests
@@ -22,13 +19,14 @@ git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b main
 # repo sync
 /opt/crave/resync.sh
 
+# Initialize the build environment variables
 source build/envsetup.sh
 
-# brunch configuration
-lunch lineage_mh2lm_bp1a-userdebug
+# Setup the device using Axion's command with the 'pico' GMS variant
+axion mh2lm va
 
-# Clean
+# Clean up the previous target files safely before compiling
 make installclean
 
-#Run
-mka bacon
+# Run the build using Brunch mode (-br) with default 16 parallel jobs
+ax -br
