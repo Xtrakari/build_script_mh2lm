@@ -18,9 +18,6 @@ repo init -u https://github.com/AxionAOSP/android.git -b lineage-22.2 --depth=1 
 
 # Clone local_manifests repository
 git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b main .repo/local_manifests
-if [ ! 0 == 0 ]
- then   curl -o .repo/local_manifests https://github.com/Xtrakari/local_manifest_mh2lm.git
- fi
 
 # repo sync
 /opt/crave/resync.sh
