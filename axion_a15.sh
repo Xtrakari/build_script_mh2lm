@@ -23,7 +23,7 @@ git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b main
 source build/envsetup.sh
 
 # Setup the device using Axion's command with the 'pico' GMS variant
-axion mh2lm va
+axion mh2lm userdebug va
 
 # Clean up the previous target files safely before compiling
 make installclean
