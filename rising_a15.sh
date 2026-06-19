@@ -1,42 +1,32 @@
-#!/bin/bash
-
 rm -rf .repo/local_manifests/
+rm -rf device/lge
+rm -rf kernel/lge
+rm -rf vendor/lge
+rm -rf hardware/lge
+rm -rf build/soong
+rm -rf out/target/product/mh2lm
+# Cleanup previous changelog to make it always fresh
+rm -rf out/target/product/*/system/etc/Changelog.txt \
+       out/target/product/*/obj/ETC/Changelog.txt_intermediates \
+       out/target/product/*/gen/ETC/Changelog.txt_intermediates
 
-# repo init rom
-repo init -u https://github.com/RisingOS-Revived/android -b qpr2 --git-lfs
-echo "=================="
-echo "Repo init success"
-echo "=================="
+# Clone axion
+repo init -u https://github.com/RisingOS-Revived/android.git -b qpr2 --depth=1 --git-lfs
 
-# Local manifests
-git clone https://github.com/Xtrakari/local_manifest_mh2lm.git .repo/local_manifests -b mh2lm-rising
-echo "============================"
-echo "Local manifest clone success"
-echo "============================"
+# Clone local_manifests repository
+git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2lm-rising .repo/local_manifests
 
-# Build Sync
-repo sync -c --no-clone-bundle --optimized-fetch --prune --force-sync -j$(nproc --all) 
-echo "============="
-echo "Sync success"
-echo "============="
+# repo sync
+/opt/crave/resync.sh
 
-# Export
-export BUILD_USERNAME=Xtra 
-export BUILD_HOSTNAME=crave
-export BUILD_BROKEN_MISSING_REQUIRED_MODULES=true
-echo "======= Export Done ======"
-
-# Delete Error Line
-sed -i '/lirc_device/d' device/lineage/sepolicy/common/vendor/hal_ir_default.te
-sed -i '/lirc_device/d' device/lineage/sepolicy/common/vendor/file_contexts
-sed -i '/type lirc_device, dev_type;/d' device/lineage/sepolicy/common/vendor/device.te
-
-# Set up build environment
+# Initialize the build environment variables
 source build/envsetup.sh
-echo "============="
 
 # Lunch 
 riseup mh2lm userdebug
+
+# Clean up the previous target files safely before compiling
+make installclean
 
 # Build 
 rise b
