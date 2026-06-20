@@ -10,7 +10,7 @@ rm -rf out/target/product/*/system/etc/Changelog.txt \
        out/target/product/*/obj/ETC/Changelog.txt_intermediates \
        out/target/product/*/gen/ETC/Changelog.txt_intermediates
 
-# Clone axion
+# Clone rising
 repo init -u https://github.com/Xtrakari/android.git -b fix --depth=1 --git-lfs
 
 # Clone local_manifests repository
