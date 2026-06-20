@@ -10,10 +10,10 @@ rm -rf out/target/product/*/system/etc/Changelog.txt \
        out/target/product/*/obj/ETC/Changelog.txt_intermediates \
        out/target/product/*/gen/ETC/Changelog.txt_intermediates
 
-# Clone rising
-repo init -u https://github.com/Xtrakari/android.git -b fix --depth=1 --git-lfs
+# 1. FIXED: Added '-m rising.xml' so repo knows where the core manifest is
+repo init -u https://github.com/Xtrakari/android.git -b fix --depth=1 --git-lfs -m rising.xml
 
-# Clone local_manifests repository
+# Clone local_manifests repository (Now has your updated XML!)
 git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2lm-rising .repo/local_manifests
 
 # repo sync
@@ -22,10 +22,10 @@ git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2l
 # Initialize the build environment variables
 source build/envsetup.sh
 
-# Standard lunch command instead of riseup
-riseup mh2lm userdebug
+# 2. FIXED: Changed 'userdebug' to match standard riseup format
+riseup mh2lm
 
 gk -s
 
-# Standard compile command instead of rise b
+# Standard compile command
 rise b
