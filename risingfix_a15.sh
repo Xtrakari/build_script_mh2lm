@@ -20,15 +20,13 @@ ln -sf snippets/rising.xml .repo/manifests/default.xml
 git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2lm-rising .repo/local_manifests
 
 # repo sync
-/opt/crave/resync.sh
+repo sync -c --no-clone-bundle --optimized-fetch --prune --force-sync -j$(nproc --all) 
 
 # Initialize the build environment variables
 source build/envsetup.sh
 
 # Set standard riseup format
-riseup mh2lm user
-
-gk -s
+riseup mh2lm userdebug
 
 # Standard compile command
 rise b
