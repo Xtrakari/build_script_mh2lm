@@ -22,11 +22,11 @@ git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2l
 # Initialize the build environment variables
 source build/envsetup.sh
 
-# Lunch 
-riseup mh2lm userdebug
+# Standard lunch command instead of riseup
+lunch lineage_mh2lm-userdebug
 
-# Clean up the previous target files safely before compiling
+# This will now work safely since the environment is loaded
 make installclean
 
-# Build 
-rise b
+# Standard compile command instead of rise b
+mka bacon
