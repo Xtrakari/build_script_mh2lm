@@ -1,11 +1,13 @@
+# repo sync
+/opt/crave/resync.sh
+
 # Initialize the build environment variables
 source build/envsetup.sh
 
-# Lunch 
-riseup mh2lm userdebug
+# 2. FIXED: Changed 'userdebug' to match standard riseup format
+riseup mh2lm
 
-# Clean up the previous target files safely before compiling
-make installclean
+gk -s
 
-# Build 
+# Standard compile command
 rise b
