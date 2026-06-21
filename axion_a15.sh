@@ -11,7 +11,7 @@ rm -rf out/target/product/*/system/etc/Changelog.txt \
        out/target/product/*/gen/ETC/Changelog.txt_intermediates
 
 # Clone axion
-repo init -u https://github.com/AxionAOSP/android.git -b lineage-22.2 --depth=1 --git-lfs
+repo init -u https://github.com/Xtrakari/android-axion.git -b update --depth=1 --git-lfs
 
 # Clone local_manifests repository
 git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b main .repo/local_manifests
