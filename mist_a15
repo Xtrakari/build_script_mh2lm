@@ -26,7 +26,7 @@ git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mist
 source build/envsetup.sh
 
 # Setup the device
-mistify mh2laxuserdebug
+mistify mh2lm userdebug
 
 # Clean up the previous target files safely before compiling
 make installclean
