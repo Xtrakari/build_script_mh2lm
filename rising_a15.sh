@@ -10,10 +10,10 @@ rm -rf out/target/product/*/system/etc/Changelog.txt \
        out/target/product/*/obj/ETC/Changelog.txt_intermediates \
        out/target/product/*/gen/ETC/Changelog.txt_intermediates
 
-# 1. FIXED: Added '-m rising.xml' so repo knows where the core manifest is
-repo init -u https://github.com/Xtrakari/android.git -b fix --depth=1 --git-lfs -m rising.xml
+# Clone axion
+repo init -u https://github.com/RisingOS-Revived/android.git -b qpr2 --depth=1 --git-lfs
 
-# Clone local_manifests repository (Now has your updated XML!)
+# Clone local_manifests repository
 git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2lm-rising .repo/local_manifests
 
 # repo sync
@@ -22,10 +22,11 @@ git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2l
 # Initialize the build environment variables
 source build/envsetup.sh
 
-# 2. FIXED: Changed 'userdebug' to match standard riseup format
-riseup mh2lm
+# Setup the device using Axion's command with the 'pico' GMS variant
+riseup mh2lm userdebug
 
-gk -s
+# Clean up the previous target files safely before compiling
+make installclean
 
-# Standard compile command
+# Run the build using Brunch mode (-br) with default 16 parallel jobs
 rise b
