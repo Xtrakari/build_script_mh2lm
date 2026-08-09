@@ -3,7 +3,6 @@ rm -rf device/lge
 rm -rf kernel/lge
 rm -rf vendor/lge
 rm -rf hardware/lge
-rm -rf build/soong
 rm -rf out/target/product/mh2lm
 # Cleanup previous changelog to make it always fresh
 rm -rf out/target/product/*/system/etc/Changelog.txt \
