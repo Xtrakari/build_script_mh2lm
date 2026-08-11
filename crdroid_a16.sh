@@ -3,7 +3,6 @@ rm -rf device/lge
 rm -rf kernel/lge
 rm -rf vendor/lge
 rm -rf hardware/lge
-rm -rf build/soong
 rm -rf out/target/product/mh2lm
 # Cleanup previous changelog to make it always fresh
 rm -rf out/target/product/*/system/etc/Changelog.txt \
@@ -12,26 +11,15 @@ rm -rf out/target/product/*/system/etc/Changelog.txt \
 
 # Clone evox
 
-repo init -u https://github.com/crdroidandroid/android.git -b 16.0-qpr0 --depth=1 --git-lfs
-#Temp Fix Repo tool
-#cd .repo/repo;git pull -r;cd ../..;
+repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --depth=1 --git-lfs --no-clone-bundle
 
-# Clone local_manifests repository
-git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2lm-evox16 .repo/local_manifests
+git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2lm-crdroid16 .repo/local_manifests
 if [ ! 0 == 0 ]
  then   curl -o .repo/local_manifests https://github.com/Xtrakari/local_manifest_mh2lm.git
  fi
 
-# repo sync
 /opt/crave/resync.sh
 
 source build/envsetup.sh
 
-# brunch configuration
-lunch lineage_mh2lm-bp2a-userdebug
-
-# Clean
-make installclean
-
-# Run
-mka bacon
+brunch mh2lm
