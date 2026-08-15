@@ -1,0 +1,9 @@
+/opt/crave/resync.sh
+
+source build/envsetup.sh
+
+gk -s
+
+riseup mh2lm userdebug
+
+rise b
