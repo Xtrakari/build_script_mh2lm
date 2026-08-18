@@ -22,7 +22,7 @@ if [ ! 0 == 0 ]
 
 source build/envsetup.sh
 
-lunch hertzify_mh2lm-bp4a-user
+lunch hertzify_mh2lm-bp4a-userdebug
 
 make installclean
 
