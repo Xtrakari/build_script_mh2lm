@@ -14,9 +14,6 @@ rm -rf out/target/product/*/system/etc/Changelog.txt \
 repo init -u https://github.com/HertzifyOS/android_manifest.git -b 16 --depth=1 --git-lfs --no-clone-bundle
 
 git clone https://github.com/Xtrakari/local_manifest_mh2lm.git --depth 1 -b mh2lm-hertzify16 .repo/local_manifests
-if [ ! 0 == 0 ]
- then   curl -o .repo/local_manifests https://github.com/Xtrakari/local_manifest_mh2lm.git
- fi
 
 /opt/crave/resync.sh
 
