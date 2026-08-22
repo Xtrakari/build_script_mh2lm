@@ -10,4 +10,6 @@ source build/envsetup.sh
 
 lunch infinity_mh2lm-userdebug
 
+m installclean
+
 m bacon
